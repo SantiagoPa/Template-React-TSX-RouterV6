@@ -1,61 +1,49 @@
+import { Suspense } from 'react';
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
+import { routes } from "./routes";
 
 import logo from "../logo.svg";
 
-import { LazyPages1, LazyPages2, LazyPages3 } from "../01-lazyload/pages/";
-
 export const Navigation = () => {
   return (
-    <BrowserRouter>
-      <div className="flex ">
-        <nav className="flex flex-col justify-start items-center bg-purple-900 h-screen">
-          <img className="h-32 mt-24" src={logo} alt="react logo" />
+    <Suspense fallback={ <span className='flex justify-center w-screen text-2xl bg-red-300 text-white'>loading...</span> } >
 
-          <ul className="flex flex-col gap-y-4 text-2xl">
-            <li>
-              <NavLink
-                to="/lazy1"
-                className={({ isActive }) => (isActive ? "text-gray-400" : "")}
-              >
-                Lazy 1
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/lazy2"
-                className={({ isActive }) => (isActive ? "text-gray-400" : "")}
-              >
-                Lazy 2
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/lazy3"
-                className={({ isActive }) => (isActive ? "text-gray-400" : "")}
-              >
-                Lazy 3
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
+      <BrowserRouter>
+        <div className="flex ">
+          <nav className="flex flex-col justify-start items-center bg-purple-900 h-screen">
+            <img className="h-32 mt-24" src={logo} alt="react logo" />
 
-        <Routes>
-          <Route
-            path="/lazy3"
-            element={ <LazyPages3 /> }
-          />
-          <Route
-            path="/lazy2"
-            element={ <LazyPages2 />}
-          />
-          <Route
-            path="/lazy1"
-            element={ <LazyPages1 /> }
-          />
-          <Route path="/*" element={<Navigate to="/lazy1" replace />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+            <ul className="flex flex-col gap-y-4 text-2xl">
+              {
+                routes.map( ({ to,name }) => (
+                  <li key={ to }>
+                    <NavLink 
+                      to={ to }
+                      className={ ({isActive}) => (isActive) ? 'text-gray-400' : '' }
+                    >
+                        { name }
+                    </NavLink>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+
+          <Routes>
+            {
+              routes.map( ({ path, Component , to }) => (
+                <Route
+                  key={ to } 
+                  path={ path }
+                  element={ <Component /> }
+                />
+              ))
+            }
+            <Route path="/*" element={<Navigate to={ routes[0].to } replace />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </Suspense>
   );
 };
