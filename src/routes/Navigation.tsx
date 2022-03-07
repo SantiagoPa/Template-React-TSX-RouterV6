@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
+import { ShoppingPage } from "../02-component-patterns/pages/ShoppingPage";
 
 import logo from "../logo.svg";
 
@@ -11,15 +12,15 @@ export const Navigation = () => {
           <img className="h-32 mt-24" src={logo} alt="react logo" />
 
           <ul className="flex flex-col gap-y-4 text-2xl">
-            <li>
+            <li className="text-center">
               <NavLink
                 to="/home"
-                className={({ isActive }) => (isActive ? "text-gray-400" : "")}
+                className={({ isActive }) => (isActive ? "text-gray-400 text-center" : "")}
               >
-                Home
+                Shopping
               </NavLink>
             </li>
-            <li>
+            <li className="text-center">
               <NavLink
                 to="/about"
                 className={({ isActive }) => (isActive ? "text-gray-400" : "")}
@@ -27,7 +28,7 @@ export const Navigation = () => {
                 about
               </NavLink>
             </li>
-            <li>
+            <li className="text-center">
               <NavLink
                 to="/other"
                 className={({ isActive }) => (isActive ? "text-gray-400" : "")}
@@ -45,11 +46,11 @@ export const Navigation = () => {
           />
           <Route
             path="about"
-            element={<h1 className="flex-1">Abouet element</h1>}
+            element={<h1 className="flex-1">about element</h1>}
           />
           <Route
             path="home"
-            element={<h1 className="flex-1">Home element</h1>}
+            element={<ShoppingPage />}
           />
           <Route path="/*" element={<Navigate to="/home" replace />} />
         </Routes>
