@@ -1,0 +1,7 @@
+.bg-dark {
+    background-color: rgb(56, 56, 56) ;
+}
+
+.custom-buttons > div,  .custom-buttons > button{
+    border-color: white;
+}
