@@ -1,6 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
-import { ShoppingPage } from "../02-component-patterns/pages/ShoppingPage";
 
 import logo from "../logo.svg";
 
@@ -50,7 +49,7 @@ export const Navigation = () => {
           />
           <Route
             path="home"
-            element={<ShoppingPage />}
+            element={<h1>Home element</h1>}
           />
           <Route path="/*" element={<Navigate to="/home" replace />} />
         </Routes>
