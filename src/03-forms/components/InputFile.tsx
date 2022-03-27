@@ -13,7 +13,7 @@ export const InputFile = ({ label, ...props }: Props) => {
 
   return (
     <>
-      <label htmlFor={props.id || props.name}> {label} </label>
+      <label htmlFor={props.id || props.name} className="text-white" > {label} </label>
       <input className="text-black" type="text" {...field} {...props} />
       <ErrorMessage name={props.name} component="span" />
     </>
